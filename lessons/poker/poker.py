@@ -3,4 +3,5 @@ def poker(hands):
     return max(hands, key=hand_rank)
 
 def hand_rank(hand):
-    pass
+    "Return a value indicating the ranking of a hand."
+
