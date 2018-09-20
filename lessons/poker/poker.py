@@ -53,15 +53,8 @@ def kind(n, ranks):
     Return the first rank that this hand has exactly n of.
     Return None if there is no n-of-a-kind in the hand.
     """
-    n_counts = {}
     for rank in ranks:
-        if rank in n_counts:
-            n_counts[rank] += 1
-        else:
-            n_counts[rank] = 1
-
-    for rank, count in n_counts.items():
-        if count == n:
+        if ranks.count(rank) == n:
             return rank
 
     return None
