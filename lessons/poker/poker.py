@@ -34,3 +34,15 @@ def card_ranks(cards):
     "Return a list of the ranks, sorted with higher first."
     ranks = ['--23456789TJQKA'.index(r) for r,s in cards]
     return sorted(ranks, reverse=True)
+
+
+def straight(ranks):
+    "Return True if the ordered ranks from a 5-card straight"
+    return ranks == [max(ranks) - rank for rank in range(5)]
+
+
+def flush(hand):
+    "Return True if all the cards have the same suit"
+    suits = [s for r, s in hand]
+    unique_suits = set(suits)
+    return len(unique_suits) == 1
