@@ -1,5 +1,8 @@
-from poker import poker
+import pytest
+from poker import poker, card_ranks
 
+
+@pytest.mark.skip()
 def test_poker():
     "Test cases for the functions in poker program"
     sf = "6C 7C 8C 9C TC".split()
@@ -15,6 +18,7 @@ def test_poker():
     assert poker([sf] + 99*[fh]) == sf
 
 
+@pytest.mark.skip()
 def test_hand_rank():
     sf = "6C 7C 8C 9C TC".split()
     fk = "9D 9H 9S 9C 7D".split()
@@ -35,6 +39,7 @@ def test_hand_rank():
     assert hand_rank(two_pair) == (2, 11, 3, [13, 11, 11, 3, 3])
     assert hand_rank(pair) == (1, 2, [11, 6, 3, 2, 2])
     assert hand_rank(high_card) == (0, [7, 5, 4, 3, 2])
+
 
 def test_card_ranks():
     """

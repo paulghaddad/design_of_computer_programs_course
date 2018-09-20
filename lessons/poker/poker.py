@@ -1,6 +1,23 @@
+CARD_RANK_TO_VALUES = {
+    '2': 2,
+    '3': 3,
+    '4': 4,
+    '5': 5,
+    '6': 6,
+    '7': 7,
+    '8': 8,
+    '9': 9,
+    'T': 10,
+    'J': 11,
+    'Q': 12,
+    'K': 13,
+    'A': 14
+}
+
 def poker(hands):
     "Return the best hand: poker([hand,...]) => hand"
     return max(hands, key=hand_rank)
+
 
 def hand_rank(hand):
     "Return a value indicating the ranking of a hand."
@@ -28,3 +45,8 @@ def hand_rank(hand):
         return (1, kind(2, ranks), ranks)
     else:
         return (0, ranks)
+
+def card_ranks(cards):
+    "Return a list of the ranks, sorted with higher first."
+    ranks = [CARD_RANK_TO_VALUES[r] for r,s in cards]
+    return sorted(ranks, reverse=True)
