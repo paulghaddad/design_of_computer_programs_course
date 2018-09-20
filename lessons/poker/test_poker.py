@@ -3,7 +3,8 @@ from poker import (
     poker,
     card_ranks,
     straight,
-    flush
+    flush,
+    kind
 )
 
 
@@ -69,3 +70,13 @@ def test_flush():
     fk = "9D 9H 9S 9C 7D".split()
     assert flush(sf) == True
     assert flush(fk) == False
+
+
+def test_kind():
+    fk = "9D 9H 9S 9C 7D".split()
+    fk_ranks = card_ranks(fk)
+
+    assert kind(4, fk_ranks) == 9
+    assert kind(3, fk_ranks) is None
+    assert kind(2, fk_ranks) is None
+    assert kind(1, fk_ranks) == 7
