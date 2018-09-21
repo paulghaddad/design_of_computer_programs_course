@@ -65,13 +65,10 @@ def two_pair(ranks):
     If there are two pair, return the two ranks as a
     tuple: (highest, lowest); otherwise return None.
     """
-    unique_ranks = set(ranks)
-    pairs = []
-    for rank in unique_ranks:
-        if ranks.count(rank) == 2:
-            pairs.append(rank)
+    high_pair = kind(2, ranks)
+    low_pair = kind(2, list(reversed(ranks)))
 
-    if len(pairs) == 2:
-        return tuple(pairs)
+    if high_pair and low_pair and high_pair != low_pair:
+        return (high_pair, low_pair)
     else:
         return None
