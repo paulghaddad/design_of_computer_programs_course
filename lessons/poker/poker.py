@@ -1,3 +1,5 @@
+ACE_LOW_STRAIGHT = [14, 5, 4, 3, 2]
+
 def poker(hands):
     "Return the best hand: poker([hand,...]) => hand"
     return max(hands, key=hand_rank)
@@ -33,7 +35,8 @@ def hand_rank(hand):
 def card_ranks(cards):
     "Return a list of the ranks, sorted with higher first."
     ranks = ['--23456789TJQKA'.index(r) for r,s in cards]
-    return sorted(ranks, reverse=True)
+    sorted_ranks = sorted(ranks, reverse=True)
+    return [5, 4, 3, 2, 1] if (sorted_ranks == ACE_LOW_STRAIGHT) else sorted_ranks
 
 
 def straight(ranks):

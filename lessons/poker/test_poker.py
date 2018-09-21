@@ -66,6 +66,11 @@ def test_straight():
     assert straight([9, 8, 8, 6, 5]) == False
 
 
+def test_ace_low_straight():
+    al = "AC 2D 4H 3D 5S".split() # Ace-Low Straight
+    assert straight(card_ranks(al)) is True
+
+
 def test_flush():
     sf = "6C 7C 8C 9C TC".split()
     fk = "9D 9H 9S 9C 7D".split()
