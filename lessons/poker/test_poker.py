@@ -4,7 +4,8 @@ from poker import (
     card_ranks,
     straight,
     flush,
-    kind
+    kind,
+    two_pair
 )
 
 
@@ -80,3 +81,16 @@ def test_kind():
     assert kind(3, fk_ranks) is None
     assert kind(2, fk_ranks) is None
     assert kind(1, fk_ranks) == 7
+
+
+def test_two_pair():
+    tp = "TD 7H TH 7C 3S".split()
+    fk = "9D 9H 9S 9C 7D".split()
+    op = "9J 9H 8D 5S 2H".split()
+    tp_ranks = card_ranks(tp)
+    fk_ranks = card_ranks(fk)
+    op_ranks = card_ranks(op)
+
+    assert two_pair(tp_ranks) == (10, 7)
+    assert two_pair(fk_ranks) is None
+    assert two_pair(op_ranks) is None
