@@ -1,12 +1,5 @@
 import pytest
-from poker import (
-    poker,
-    card_ranks,
-    straight,
-    flush,
-    kind,
-    two_pair
-)
+from poker import poker, hand_rank, card_ranks, straight, flush, kind, two_pair
 
 
 @pytest.mark.skip()
@@ -22,10 +15,9 @@ def test_poker():
 
     # Test extreme values
     assert poker([fh]) == fh
-    assert poker([sf] + 99*[fh]) == sf
+    assert poker([sf] + 99 * [fh]) == sf
 
 
-@pytest.mark.skip()
 def test_hand_rank():
     sf = "6C 7C 8C 9C TC".split()
     fk = "9D 9H 9S 9C 7D".split()
@@ -67,7 +59,7 @@ def test_straight():
 
 
 def test_ace_low_straight():
-    al = "AC 2D 4H 3D 5S".split() # Ace-Low Straight
+    al = "AC 2D 4H 3D 5S".split()  # Ace-Low Straight
     assert straight(card_ranks(al)) is True
 
 
