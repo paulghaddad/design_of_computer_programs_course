@@ -2,20 +2,26 @@ import pytest
 from poker import poker, hand_rank, card_ranks, straight, flush, kind, two_pair
 
 
-@pytest.mark.skip()
 def test_poker():
     "Test cases for the functions in poker program"
     sf = "6C 7C 8C 9C TC".split()
     fk = "9D 9H 9S 9C 7D".split()
     fh = "TD TC TH 7C 7D".split()
 
-    assert poker([sf, fk, fh]) == sf
-    assert poker([fk, fh]) == fk
-    assert poker([fh, fh]) == fh
+    assert poker([sf, fk, fh]) == [sf]
+    assert poker([fk, fh]) == [fk]
 
     # Test extreme values
-    assert poker([fh]) == fh
-    assert poker([sf] + 99 * [fh]) == sf
+    assert poker([sf] + 99 * [fh]) == [sf]
+
+
+def test_poker_with_ties():
+    sf1 = "6C 7C 8C 9C TC".split() # Straight Flush
+    sf2 = "6D 7D 8D 9D TD".split() # Straight Flush
+    fk = "9D 9H 9S 9C 7D".split() # Four of a Kind
+    fh = "TD TC TH 7C 7D".split() # Full House
+
+    assert poker([sf1, sf2, fk, fh]) == [sf1, sf2]
 
 
 def test_hand_rank():

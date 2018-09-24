@@ -2,8 +2,19 @@ ACE_LOW_STRAIGHT = [14, 5, 4, 3, 2]
 
 
 def poker(hands):
-    "Return the best hand: poker([hand,...]) => hand"
-    return max(hands, key=hand_rank)
+    "Return a list of winning hands: poker([hand,...]) => [hand, ...]"
+    return allmax(hands, key=hand_rank)
+
+
+def allmax(iterable, key=None):
+    "Return a list of all items equal to the max of the iterable."
+    max_hand = max(iterable, key=key)
+    max_hands = []
+    for hand in iterable:
+        if key(hand) == key(max_hand):
+            max_hands.append(hand)
+
+    return max_hands
 
 
 def hand_rank(hand):
