@@ -8,10 +8,15 @@ def poker(hands):
 
 def allmax(iterable, key=None):
     "Return a list of all items equal to the max of the iterable."
-    max_hand = max(iterable, key=key)
-    max_hands = []
+    max_hands, current_max_hand = [], iterable[0]
+    key = key or (lambda x: x)
+
     for hand in iterable:
-        if key(hand) == key(max_hand):
+        if key(hand) > key(current_max_hand):
+            current_max_hand = hand
+            max_hands.clear()
+            max_hands.append(hand)
+        elif key(hand) == key(current_max_hand):
             max_hands.append(hand)
 
     return max_hands
