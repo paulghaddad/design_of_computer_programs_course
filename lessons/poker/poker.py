@@ -1,9 +1,27 @@
+import random
+
 ACE_LOW_STRAIGHT = [14, 5, 4, 3, 2]
+DEFAULT_DECK = [r+s for r in '23456789TJQKA' for s in 'SHDC']
 
 
 def poker(hands):
     "Return a list of winning hands: poker([hand,...]) => [hand, ...]"
     return allmax(hands, key=hand_rank)
+
+
+def deal(numhands, n=5, deck=DEFAULT_DECK):
+    """Return a list of numhands of hands consisting of n cards"""
+    dealt_hands = []
+    random.shuffle(deck)
+
+    for i in range(numhands):
+        new_hand = []
+        for j in range(n):
+            new_hand.append(deck.pop(0))
+
+        dealt_hands.append(new_hand)
+
+    return dealt_hands
 
 
 def allmax(iterable, key=None):

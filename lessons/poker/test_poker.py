@@ -1,5 +1,14 @@
 import pytest
-from poker import poker, hand_rank, card_ranks, straight, flush, kind, two_pair
+from poker import (
+    poker,
+    hand_rank,
+    card_ranks,
+    straight,
+    flush,
+    kind,
+    two_pair,
+    deal
+)
 
 
 def test_poker():
@@ -97,3 +106,12 @@ def test_two_pair():
     assert two_pair(tp_ranks) == (10, 7)
     assert two_pair(fk_ranks) is None
     assert two_pair(op_ranks) is None
+
+
+def test_deal():
+    deck = [r+s for r in '23456789TJQKA' for s in 'SHDC']
+
+    dealt_hands = deal(3, n=5, deck=deck)
+
+    assert len(dealt_hands) == 3
+    assert len(dealt_hands[0]) == 5
