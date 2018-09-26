@@ -14,14 +14,7 @@ def deal(numhands, n=5, deck=DEFAULT_DECK):
     dealt_hands = []
     random.shuffle(deck)
 
-    for i in range(numhands):
-        new_hand = []
-        for j in range(n):
-            new_hand.append(deck.pop(0))
-
-        dealt_hands.append(new_hand)
-
-    return dealt_hands
+    return [deck[i*n:i*n+n] for i in range(numhands)]
 
 
 def allmax(iterable, key=None):
