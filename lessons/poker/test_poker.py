@@ -40,7 +40,7 @@ def test_hand_rank():
     pair = "2S 2C JC 6S 3H".split()
     high_card = "7H 5S 4D 3C 2H".split()
 
-    assert hand_rank(sf) == (8, (10, 9, 8, 7, 6))
+    assert hand_rank(sf) == (9, (10, 9, 8, 7, 6))
     assert hand_rank(fk) == (7, (9, 7))
     assert hand_rank(fh) == (6, (10, 7))
     assert hand_rank(flush) == (5, ( 10, 8, 7, 5, 3 ))
