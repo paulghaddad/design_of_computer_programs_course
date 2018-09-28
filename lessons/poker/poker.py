@@ -1,16 +1,17 @@
 import random
 
 ACE_LOW_STRAIGHT = [14, 5, 4, 3, 2]
-DEFAULT_DECK = [r+s for r in '23456789TJQKA' for s in 'SHDC']
+DEFAULT_DECK = [r + s for r in "23456789TJQKA" for s in "SHDC"]
 COUNT_RANKINGS = {
     (5,): 10,
-    (4,1): 7,
-    (3,2): 6,
-    (3,1,1): 3,
-    (2,2,1): 2,
-    (2,1,1,1): 1,
-    (1,1,1,1,1): 0
+    (4, 1): 7,
+    (3, 2): 6,
+    (3, 1, 1): 3,
+    (2, 2, 1): 2,
+    (2, 1, 1, 1): 1,
+    (1, 1, 1, 1, 1): 0,
 }
+
 
 def poker(hands):
     "Return a list of winning hands: poker([hand,...]) => [hand, ...]"
@@ -22,7 +23,7 @@ def deal(numhands, n=5, deck=DEFAULT_DECK):
     dealt_hands = []
     random.shuffle(deck)
 
-    return [deck[i*n:i*n+n] for i in range(numhands)]
+    return [deck[i * n : i * n + n] for i in range(numhands)]
 
 
 def allmax(iterable, key=None):
@@ -44,14 +45,14 @@ def hand_rank(hand):
     "Return a value indicating the ranking of a hand."
     # counts is the count of each rank; rank lists corresponding ranks
     # E.g, '7 T 7 9 7' => counts = (3, 1, 1); ranks = (7, 10, 9)
-    groups = group(['--23456789TJQKA'.index(r) for r,s in hand])
+    groups = group(["--23456789TJQKA".index(r) for r, s in hand])
     counts, ranks = unzip(groups)
     if ranks == (14, 5, 4, 3, 2):
         ranks = (5, 4, 3, 2, 1)
-    straight = len(ranks) == 5 and max(ranks)-min(ranks) == 4
-    flush = len(set([s for r,s in hand])) == 1
+    straight = len(ranks) == 5 and max(ranks) - min(ranks) == 4
+    flush = len(set([s for r, s in hand])) == 1
 
-    return max(COUNT_RANKINGS[counts], 4*straight + 5*flush), ranks
+    return max(COUNT_RANKINGS[counts], 4 * straight + 5 * flush), ranks
 
 
 def card_ranks(cards):

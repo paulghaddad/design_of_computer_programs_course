@@ -1,10 +1,5 @@
 import pytest
-from poker import (
-    poker,
-    hand_rank,
-    card_ranks,
-    deal
-)
+from poker import poker, hand_rank, card_ranks, deal
 
 
 def test_poker():
@@ -21,10 +16,10 @@ def test_poker():
 
 
 def test_poker_with_ties():
-    sf1 = "6C 7C 8C 9C TC".split() # Straight Flush
-    sf2 = "6D 7D 8D 9D TD".split() # Straight Flush
-    fk = "9D 9H 9S 9C 7D".split() # Four of a Kind
-    fh = "TD TC TH 7C 7D".split() # Full House
+    sf1 = "6C 7C 8C 9C TC".split()  # Straight Flush
+    sf2 = "6D 7D 8D 9D TD".split()  # Straight Flush
+    fk = "9D 9H 9S 9C 7D".split()  # Four of a Kind
+    fh = "TD TC TH 7C 7D".split()  # Full House
 
     assert poker([sf1, sf2, fk, fh]) == [sf1, sf2]
 
@@ -43,7 +38,7 @@ def test_hand_rank():
     assert hand_rank(sf) == (9, (10, 9, 8, 7, 6))
     assert hand_rank(fk) == (7, (9, 7))
     assert hand_rank(fh) == (6, (10, 7))
-    assert hand_rank(flush) == (5, ( 10, 8, 7, 5, 3 ))
+    assert hand_rank(flush) == (5, (10, 8, 7, 5, 3))
     assert hand_rank(straight) == (4, (11, 10, 9, 8, 7))
     assert hand_rank(three_kind) == (3, (7, 5, 2))
     assert hand_rank(two_pair) == (2, (11, 3, 13))
@@ -65,7 +60,7 @@ def test_card_ranks():
 
 
 def test_deal():
-    deck = [r+s for r in '23456789TJQKA' for s in 'SHDC']
+    deck = [r + s for r in "23456789TJQKA" for s in "SHDC"]
 
     dealt_hands = deal(3, n=5, deck=deck)
 
