@@ -18,14 +18,13 @@ def best_wild_hand(hand):
 
     replacement_hands = [hand[:]]
     if black_joker or red_joker:
-
         for card in hand:
-
-            if black_joker:
-                replacement_hands += [hand + [black_card, red_card] for black_card in BLACK_DECK for red_card in RED_DECK]
-
-            # if red_joker:
-            #     replacement_hands += [hand + [red_card] for red_card in RED_DECK]
+            if black_joker and red_joker:
+                replacement_hands += [hand + [black_card, red_card] for black_card in BLACK_DECK if black_joker for red_card in RED_DECK]
+            elif red_joker:
+                replacement_hands += [hand + [red_card] for red_card in RED_DECK]
+            elif black_joker:
+                replacement_hands += [hand + [black_card] for black_card in BLACK_DECK]
 
     for replacement_hand in replacement_hands:
         best_hand_of_combination = max(itertools.combinations(replacement_hand, 5), key=hand_rank)
