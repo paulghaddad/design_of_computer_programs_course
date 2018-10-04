@@ -7,7 +7,7 @@ from poker import RED_DECK, BLACK_DECK, hand_rank
 def best_wild_hand(hand):
     "Try all values for jokers in all 5-card selections."
 
-    best_hand, black_joker, red_joker= None, False, False
+    best_hand, black_joker, red_joker = None, False, False
     if '?B' in hand:
         black_joker = True
         hand.remove('?B')
@@ -21,14 +21,11 @@ def best_wild_hand(hand):
 
         for card in hand:
 
-            if re.search(r".[SC]", card):
-                if black_joker:
-                    replacement_hands += [hand + [black_card] for black_card in BLACK_DECK]
+            if black_joker:
+                replacement_hands += [hand + [black_card] for black_card in BLACK_DECK]
 
-
-            if re.search(r".[HD]", card):
-                if red_joker:
-                    replacement_hands += [hand + [red_card] for red_card in RED_DECK]
+            if red_joker:
+                replacement_hands += [hand + [red_card] for red_card in RED_DECK]
 
     for replacement_hand in replacement_hands:
         best_hand_of_combination = max(itertools.combinations(replacement_hand, 5), key=hand_rank)
