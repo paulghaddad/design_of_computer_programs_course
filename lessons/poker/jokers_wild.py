@@ -16,10 +16,10 @@ def best_wild_hand(hand):
         red_joker = True
         hand.remove('?R')
 
+    replacement_hands = [hand[:]]
     if black_joker or red_joker:
 
         for card in hand:
-            replacement_hands = [hand[:]]
 
             if re.search(r".[SC]", card):
                 if black_joker:
@@ -30,12 +30,12 @@ def best_wild_hand(hand):
                 if red_joker:
                     replacement_hands += [hand + [red_card] for red_card in RED_DECK]
 
-            for replacement_hand in replacement_hands:
-                best_hand_of_combination = max(itertools.combinations(replacement_hand, 5), key=hand_rank)
+    for replacement_hand in replacement_hands:
+        best_hand_of_combination = max(itertools.combinations(replacement_hand, 5), key=hand_rank)
 
-                if not best_hand:
-                    best_hand = best_hand_of_combination
-                elif best_hand_of_combination > best_hand:
-                    best_hand = best_hand_of_combination
+        if not best_hand:
+            best_hand = best_hand_of_combination
+        elif best_hand_of_combination > best_hand:
+            best_hand = best_hand_of_combination
 
     return best_hand
