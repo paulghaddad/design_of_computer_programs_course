@@ -1,48 +1,41 @@
-import re
 import itertools
+import re
 
-from poker import DEFAULT_DECK, hand_rank
+from poker import RED_DECK, BLACK_DECK, hand_rank
 
 
 def best_wild_hand(hand):
     "Try all values for jokers in all 5-card selections."
 
-    best_hand = None
-
-    # Take in hand and check for a black joker
+    best_hand, black_joker, red_joker= None, False, False
     if '?B' in hand:
-        # Generate all hand combinations when substituting a spade or club for the joker
-        black_cards = [card for card in DEFAULT_DECK if re.search(r".[SC]", card)]
+        black_joker = True
+        hand.remove('?B')
+
+    if '?R' in hand:
+        red_joker = True
+        hand.remove('?R')
+
+    if black_joker or red_joker:
 
         for card in hand:
+            replacement_hands = [hand[:]]
+
             if re.search(r".[SC]", card):
-                hand_without_joker = hand[:]
-                hand_without_joker.remove('?B')
-                replacement_hands = [hand_without_joker + [black_card] for black_card in black_cards]
+                if black_joker:
+                    replacement_hands += [hand + [black_card] for black_card in BLACK_DECK]
 
-                for replacement_hand in replacement_hands:
-                    best_hand_of_combination = max(itertools.combinations(replacement_hand, 5), key=hand_rank)
 
-                    if not best_hand:
-                        best_hand = best_hand_of_combination
-                    elif best_hand_of_combination > best_hand:
-                        best_hand = best_hand_of_combination
-    elif '?R' in hand:
-        # Generate all hand combinations when substituting a heart or diamond for the joker
-        red_cards = [card for card in DEFAULT_DECK if re.search(r".[HD]", card)]
-
-        for card in hand:
             if re.search(r".[HD]", card):
-                hand_without_joker = hand[:]
-                hand_without_joker.remove('?R')
-                replacement_hands = [hand_without_joker + [red_card] for red_card in red_cards]
+                if red_joker:
+                    replacement_hands += [hand + [red_card] for red_card in RED_DECK]
 
-                for replacement_hand in replacement_hands:
-                    best_hand_of_combination = max(itertools.combinations(replacement_hand, 5), key=hand_rank)
+            for replacement_hand in replacement_hands:
+                best_hand_of_combination = max(itertools.combinations(replacement_hand, 5), key=hand_rank)
 
-                    if not best_hand:
-                        best_hand = best_hand_of_combination
-                    elif best_hand_of_combination > best_hand:
-                        best_hand = best_hand_of_combination
+                if not best_hand:
+                    best_hand = best_hand_of_combination
+                elif best_hand_of_combination > best_hand:
+                    best_hand = best_hand_of_combination
 
     return best_hand

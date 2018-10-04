@@ -1,7 +1,10 @@
 import random
+import re
 
 ACE_LOW_STRAIGHT = [14, 5, 4, 3, 2]
 DEFAULT_DECK = [r + s for r in "23456789TJQKA" for s in "SHDC"]
+RED_DECK = [card for card in DEFAULT_DECK if re.search(r".[HD]", card)]
+BLACK_DECK = [card for card in DEFAULT_DECK if re.search(r".[SC]", card)]
 COUNT_RANKINGS = {
     (5,): 10,
     (4, 1): 7,
