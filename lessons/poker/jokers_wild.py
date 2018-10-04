@@ -27,5 +27,22 @@ def best_wild_hand(hand):
                         best_hand = best_hand_of_combination
                     elif best_hand_of_combination > best_hand:
                         best_hand = best_hand_of_combination
+    elif '?R' in hand:
+        # Generate all hand combinations when substituting a heart or diamond for the joker
+        red_cards = [card for card in DEFAULT_DECK if re.search(r".[HD]", card)]
+
+        for card in hand:
+            if re.search(r".[HD]", card):
+                hand_without_joker = hand[:]
+                hand_without_joker.remove('?R')
+                replacement_hands = [hand_without_joker + [red_card] for red_card in red_cards]
+
+                for replacement_hand in replacement_hands:
+                    best_hand_of_combination = max(itertools.combinations(replacement_hand, 5), key=hand_rank)
+
+                    if not best_hand:
+                        best_hand = best_hand_of_combination
+                    elif best_hand_of_combination > best_hand:
+                        best_hand = best_hand_of_combination
 
     return best_hand
