@@ -8,4 +8,5 @@ for (red, green, ivory, yellow, blue) in orderings:
         for (dog, snails, fox, horse, ZEBRA) in orderings:
             for (coffee, tea, milk, oj, WATER) in orderings:
                 for (OldGold, Kools, Chesterfields, LuckyStrike, Parliaments) in orderings:
-                    # Constraints here
+                    # Constraint #2: The Englishman lives in the red house
+                    if (red == Englishman): # Check to see if red and Englishman have been assigned the same house number
