@@ -40,10 +40,10 @@ def zebra_puzzle():
 
 import time
 
-def timer():
+def timedcall(fn):
     t0 = time.perf_counter()
-    zebra_puzzle()
+    fn()
     t1 = time.perf_counter()
     return t1-t0
 
-print(timer())
+print(timedcall(zebra_puzzle))
