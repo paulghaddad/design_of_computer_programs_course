@@ -38,4 +38,12 @@ def zebra_puzzle():
             if nextto(Kools, horse) #12
             )
 
-print(zebra_puzzle())
+import time
+
+def timer():
+    t0 = time.perf_counter()
+    zebra_puzzle()
+    t1 = time.perf_counter()
+    return t1-t0
+
+print(timer())
