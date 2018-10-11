@@ -55,11 +55,9 @@ def timedcalls(n, fn, *args):
         times = [timedcall(fn, *args)[0] for _ in range(n)]
     else:
         times = []
-        total_time = 0.0
-        while total_time < n:
+        while sum(times) < n:
             function_runtime = timedcall(fn, *args)[0]
             times.append(function_runtime)
-            total_time += function_runtime
 
     return min(times), average(times), max(times)
 
@@ -69,4 +67,4 @@ def average(numbers):
     return sum(numbers) / float(len(numbers))
 
 
-print(timedcalls(5.0, zebra_puzzle))
+print(timedcalls(2.0, zebra_puzzle))
