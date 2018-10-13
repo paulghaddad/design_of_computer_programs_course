@@ -46,7 +46,16 @@ def instrument_fn(fn, *args):
     print(f"{fn.__name__} got {result} with {c.starts} iters over {c.items} items")
 
 
-# >>> instrument_fn(zebra_puzzle)
+def c(sequence):
+    """Generate items in sequence; keeping counts as we go. c.starts is the
+    number of sequences started; c.items is the number of items generated."""
+    c.starts += 1
+    for item in sequence:
+        c.items += 1
+        yield item
+
+
+instrument_fn(zebra_puzzle)
 # zebra_puzzle got (1, 5) with 25 iters over 2775 items.
 
 
@@ -77,4 +86,4 @@ def average(numbers):
     return sum(numbers) / float(len(numbers))
 
 
-print(timedcalls(2.0, zebra_puzzle))
+# print(timedcalls(2.0, zebra_puzzle))
