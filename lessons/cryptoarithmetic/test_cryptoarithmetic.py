@@ -12,8 +12,3 @@ def test_valid_returns_false():
 
 def test_valid_returns_false_on_zero_division_error():
     assert valid('2 / 0 == 5') is False
-
-
-def test_valid_returns_error_on_invalid_formula():
-    with pytest.raises(ValueError):
-        valid('2 / 0 , == 5')
