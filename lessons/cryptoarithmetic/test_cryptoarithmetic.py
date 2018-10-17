@@ -1,5 +1,5 @@
 import pytest
-from cryptoarithmetic import valid
+from cryptoarithmetic import valid, solve
 
 
 def test_valid_returns_true():
@@ -16,3 +16,12 @@ def test_valid_returns_false_on_zero_division_error():
 
 def test_valid_returns_false_on_invalid_numbers():
     assert valid('02 + 4 == 5') is False
+
+
+def test_solve_with_solution():
+    formula = "ODD + ODD == EVEN"
+    assert solve(formula) == "122 + 122 == 3435"
+
+
+def test_solve_with_no_solution():
+    pass
