@@ -1,3 +1,4 @@
+import itertools
 import re
 
 
@@ -9,6 +10,7 @@ def solve(formula):
     """
     # Find all combinations for the given formula
     formula_combinations = fill_in(formula)
+
     # Check each with valid and return the first one
     return next(f for f in formula_combinations if valid(f))
 
@@ -26,10 +28,13 @@ def solve_norvig(formula):
             return f
 
 
-# Not implemented yet
 def fill_in(formula):
     "Generate all possible fillings-in of letters in formula with digits."
-    pass
+    letters = ''.join(set(re.findall(r'[A-Z]', formula)))
+    import pdb; pdb.set_trace()
+    for digits in itertools.permutations('1234567890', len(letters)):
+        table = str.maketrans(letters, ''.join(digits))
+        yield formula.translate(table)
 
 
 
