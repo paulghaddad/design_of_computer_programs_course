@@ -33,18 +33,15 @@ def compile_word(word):
     E.g., compile_word('YOU') => '(1*U+10*O+100*Y)'
     Non-uppercase words unchanged: compile_word('+') => '+'
     """
-    if not re.fullmatch(r'[A-Z]+', word):
+    if str.isupper(word):
+        letters = list(word)
+
+        terms = [f"{10**digit}*{letter}" for digit, letter in enumerate(reversed(letters))]
+
+        return f"({' + '.join(terms)})"
+    else:
         return word
 
-    letters = list(word)
-
-    compiled_word = ''
-    for digit, letter in enumerate(reversed(letters)):
-        compiled_word += str(10**digit) + '*' + letter
-        if digit != len(letters) - 1:
-            compiled_word += ' + '
-
-    return f"({compiled_word})"
 
 
 def fill_in(formula):
