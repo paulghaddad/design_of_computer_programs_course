@@ -1,5 +1,5 @@
 import pytest
-from cryptoarithmetic import valid, solve
+from cryptoarithmetic import valid, solve, compile_word
 
 
 def test_valid_returns_true():
@@ -25,3 +25,12 @@ def test_solve_with_solution():
 
 def test_solve_with_no_solution():
     pass
+
+
+def test_compile_word():
+    assert compile_word('YOU') == '(1*U + 10*O + 100*Y)'
+
+
+def test_compile_word_with_plus():
+    assert compile_word('+') == '+'
+

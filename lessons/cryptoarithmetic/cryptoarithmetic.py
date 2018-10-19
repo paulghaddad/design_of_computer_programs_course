@@ -27,6 +27,25 @@ def solve_norvig(formula):
         if valid(f):
             return f
 
+def compile_word(word):
+    """
+    Compile a word of uppercase letters as numeric digits.
+    E.g., compile_word('YOU') => '(1*U+10*O+100*Y)'
+    Non-uppercase words unchanged: compile_word('+') => '+'
+    """
+    if not re.fullmatch(r'[A-Z]+', word):
+        return word
+
+    letters = list(word)
+
+    compiled_word = ''
+    for digit, letter in enumerate(reversed(letters)):
+        compiled_word += str(10**digit) + '*' + letter
+        if digit != len(letters) - 1:
+            compiled_word += ' + '
+
+    return f"({compiled_word})"
+
 
 def fill_in(formula):
     "Generate all possible fillings-in of letters in formula with digits."
