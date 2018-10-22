@@ -48,9 +48,13 @@ def compile_formula(formula, verbose=False):
     letters = ''.join(set(re.findall(r'[A-Z]', formula)))
     params = ', '.join(letters)
     tokens = map(compile_word, re.split('([A-Z]+)', formula))
-    leading_digits = re.findall(r"([A-Z])[A-Z]+", formula)
-    leading_digits_as_list = f"[{', '.join(leading_digits)}]"
-    body = f"{''.join(tokens)} if 0 not in {leading_digits_as_list} else False"
+    leading_digits = set(re.findall(r"([A-Z])[A-Z]+", formula))
+    body = ''.join(tokens)
+
+    if leading_digits:
+        leading_digits_list = f"[{', '.join(leading_digits)}]"
+        body += f" and 0 not in {leading_digits_list}"
+
     f = f"lambda {params}: {body}"
     if verbose: print(f)
     return eval(f), letters
