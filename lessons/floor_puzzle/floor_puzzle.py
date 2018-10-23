@@ -1,24 +1,19 @@
 import itertools
 
-TOP_FLOOR = 5
-BOTTOM_FLOOR = 1
-
-
 def determine_floor_assignments():
     """
     Using a brute force approach, determine the floor assingments of five
     people: Hopper, Kay, Liskov, Perlis and Ritchie
     """
-    floors = range(BOTTOM_FLOOR, TOP_FLOOR + 1)
+    floors = bottom_floor, _, _, _, top_floor = range(1, 6)
+    orderings = itertools.permutations(floors, len(floors))
 
     return next(
         [Hopper, Kay, Liskov, Perlis, Ritchie]
-        for (Hopper, Kay, Liskov, Perlis, Ritchie) in itertools.permutations(
-            floors, len(floors)
-        )
-        if Hopper != TOP_FLOOR
-        if Kay != BOTTOM_FLOOR
-        if Liskov not in (BOTTOM_FLOOR, TOP_FLOOR)
+        for (Hopper, Kay, Liskov, Perlis, Ritchie) in orderings
+        if Hopper != top_floor
+        if Kay != bottom_floor
+        if Liskov not in (bottom_floor, top_floor)
         if higher_floor(Perlis, Kay)
         if not adjacent_floor(Ritchie, Liskov)
         if not adjacent_floor(Liskov, Kay)
