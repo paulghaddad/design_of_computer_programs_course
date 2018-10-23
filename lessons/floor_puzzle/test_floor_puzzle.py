@@ -5,7 +5,7 @@ from floor_puzzle import determine_floor_assignments, higher_floor, adjacent_flo
 
 
 def test_determine_floor_assignments():
-    assert determine_floor_assignments() == (3, 2, 4, 5, 1)
+    assert determine_floor_assignments() == [3, 2, 4, 5, 1]
 
 
 def test_higher_floor_when_first_person_on_higher_floor():
