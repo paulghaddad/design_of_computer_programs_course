@@ -1,6 +1,8 @@
 def longest_subpalindrome_slice(string):
     if _palindrome(string.lower()):
         return (0, len(string))
+    else:
+        return longest_subpalindrome_slice(string[:-1])
 
 
 def _palindrome(string):
