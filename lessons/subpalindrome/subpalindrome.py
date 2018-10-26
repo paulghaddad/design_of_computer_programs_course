@@ -21,6 +21,12 @@ def longest_subpalindrome_slice(string):
                     if len(substring) > (longest_subpalindrome[1] - longest_subpalindrome[0]):
                         longest_subpalindrome = ((i-k)//2, (i+k)//2+1)
                 k += 2
+        else:
+            print(f"Left letter: {normalized_string[i//2]}")
+            print(f"Right letter: {normalized_string[i//2 + 1]}")
+            substring = normalized_string[i//2:i//2+2]
+            if len(substring) > (longest_subpalindrome[1] - longest_subpalindrome[0]):
+                longest_subpalindrome = (i//2, i//2+2)
 
     return longest_subpalindrome
 
