@@ -2,38 +2,33 @@ def longest_subpalindrome_slice(string):
     "Return (i, j) such that text[i:j] is the longest palindrome in text."
     normalized_string = string.lower()
 
-    longest_subpalindrome = (0,0)
+    longest_subpalindromes = []
+    left_edge, right_edge = 0, 2*len(normalized_string) - 1
 
-    left_edge, right_edge = 0, len(normalized_string) + len(normalized_string) - 1
     for i in range(right_edge):
-        print(i)
-
         if i % 2 == 0:
-            k = 0
-            while (i-k >= left_edge) and (i+k < right_edge):
-                print(f"Even Left: {i - k} {normalized_string[(i-k)//2]}")
-                print(f"Even Right: {i + k} {normalized_string[(i+k)//2]}")
-                substring = normalized_string[(i-k)//2:(i+k)//2+1]
-                if _palindrome(substring):
+            longest_subpalindromes.append(_grow(normalized_string, i, i))
+        # else:
+        #     k = 0
+        #     while (i-k >= left_edge) and (i+k < right_edge):
+        #         substring = normalized_string[(i-k)//2:(i+k)//2+2]
+        #         if _palindrome(substring):
+        #             if len(substring) > (longest_subpalindrome[1] - longest_subpalindrome[0]):
+        #                 longest_subpalindrome = ((i-k)//2, (i+k)//2+2)
+        #         else:
+        #             break
+        #         k += 2
 
-                    print(f"Palindrome! {substring}")
-                    if len(substring) > (longest_subpalindrome[1] - longest_subpalindrome[0]):
-                        longest_subpalindrome = ((i-k)//2, (i+k)//2+1)
-                k += 2
-        else:
-            m = 0
-            while (i-m >= left_edge) and (i+m < right_edge):
-                print(f"Odd Left letter: {normalized_string[(i-m)//2]}")
-                print(f"Odd Right letter: {normalized_string[(i+m)//2 + 1]}")
-                substring = normalized_string[(i-m)//2:(i+m)//2+2]
-                if _palindrome(substring):
+    return max(longest_subpalindromes, key=length)
 
-                    print(f"Palindrome! {substring}")
-                    if len(substring) > (longest_subpalindrome[1] - longest_subpalindrome[0]):
-                        longest_subpalindrome = ((i-m)//2, (i+m)//2+2)
-                m += 2
+def length(subpalindrome):
+    return subpalindrome[1] - subpalindrome[0]
 
-    return longest_subpalindrome
+def _grow(text, start, end):
+    while (start >= 0 and end < 2*len(text) - 1 and text[(start//2)] == text[(end//2)]):
+        start -= 2; end += 2
+
+    return (start//2+1, end//2)
 
 
 def _palindrome(string):
