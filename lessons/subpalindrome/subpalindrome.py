@@ -1,28 +1,20 @@
-def longest_subpalindrome_slice(string):
+def longest_subpalindrome_slice(text):
     "Return (i, j) such that text[i:j] is the longest palindrome in text."
-    normalized_string = string.lower()
+    if text == '': return (0,0)
+    normalized_text = text.lower()
 
     longest_subpalindromes = []
-    left_edge, right_edge = 0, 2*len(normalized_string) - 1
+    left_edge, right_edge = 0, 2*len(normalized_text) - 1
 
-    for i in range(right_edge):
-        if i % 2 == 0:
-            longest_subpalindromes.append(_grow(normalized_string, i, i))
-        # else:
-        #     k = 0
-        #     while (i-k >= left_edge) and (i+k < right_edge):
-        #         substring = normalized_string[(i-k)//2:(i+k)//2+2]
-        #         if _palindrome(substring):
-        #             if len(substring) > (longest_subpalindrome[1] - longest_subpalindrome[0]):
-        #                 longest_subpalindrome = ((i-k)//2, (i+k)//2+2)
-        #         else:
-        #             break
-        #         k += 2
+    longest_subpalindromes = [_grow(normalized_text, i, i+i%2) for i in range(right_edge)]
 
-    return max(longest_subpalindromes, key=length)
+    return max(longest_subpalindromes, key=_length)
 
-def length(subpalindrome):
+
+def _length(subpalindrome):
+    "Return the difference in a two element tuple."
     return subpalindrome[1] - subpalindrome[0]
+
 
 def _grow(text, start, end):
     while (start >= 0 and end < 2*len(text) - 1 and text[(start//2)] == text[(end//2)]):
