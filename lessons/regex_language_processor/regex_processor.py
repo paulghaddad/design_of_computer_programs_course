@@ -2,24 +2,24 @@ def lit(string):
     return ('lit', string)
 
 
-def seq(*sequences):
-    return ('seq', *sequences)
+def seq(x, y):
+    return ('seq', x, y)
 
 
-def alt(*strings):
-    return ('alt', *strings)
+def alt(x, y):
+    return ('alt', x, y)
 
 
-def star(character):
-    return ('star', character)
+def star(x):
+    return ('star', x)
 
 
-def plus(literal):
-    return ('seq', ('lit', literal[1]), ('star', ('lit', literal[1])))
+def plus(x):
+    return seq(x, star(x))
 
 
-def opt(literal):
-    return ('alt', lit(''), literal)
+def opt(x):
+    return alt(lit(''), x)
 
 
 def oneof(chars):
