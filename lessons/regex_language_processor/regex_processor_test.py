@@ -2,6 +2,8 @@ import pytest
 
 
 from regex_processor import (
+    match,
+    search,
     matchset,
     lit,
     seq,
@@ -52,19 +54,11 @@ def test_matchset():
     assert matchset(('star', ('lit', 'hey')), 'heyhey!') == set(['!', 'heyhey!', 'hey!'])
 
 
-# def test_search():
-#     a,b,c = lit('a'), lit('b'), lit('c')
-#     abcstars = seq(star(a), seq(star(b), star(c)))
-#     dotstar = star(dot)
-#     assert search(lit('def'), 'abcdefg') == 'def'
-#     assert search(seq(lit('def'), eol), 'abcdef') == 'def'
-#     assert search(seq(lit('def'), eol), 'abcdefg') is None
-#     assert search(a, 'not the start') == 'a'
-#     assert match(a, 'not the start') is None
-#     assert match(abcstars, 'aaabbbccccccccdef') == 'aaabbbccccccccdef'
-#     assert match(abcstars, 'junk') == ''
-#     assert all(match(seq(abcstars, eol), s) == s for s in 'abc aaabbccc aaaabcccc'.split())
-#     r = seq(lit('ab'), seq(dotstar, seq(lit('aca'), seq(dotstar, seq(a, eol)))))
-#     assert all(search(r, s) is not None for s in 'abracadabra abacaa about-acacia-flora'.split())
-#     assert all(match(seq(c, seq(dotstar, b)), s) is not None for s in 'cab cob carob cb carbuncle'.split())
-#     assert not any(match(seq(c, seq(dot, b)), s) for s in 'crab cb across scab'.split())
+def test_match():
+    assert match(('star', ('lit', 'a')),'aaabcd') == 'aaa'
+    assert match(('alt', ('lit', 'b'), ('lit', 'c')), 'ab') == None
+    assert match(('alt', ('lit', 'b'), ('lit', 'a')), 'ab') == 'a'
+
+
+def test_search():
+    assert search(('alt', ('lit', 'b'), ('lit', 'c')), 'ab') == 'b'
