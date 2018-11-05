@@ -1,3 +1,35 @@
+def lit(string):
+    return ('lit', string)
+
+
+def seq(*sequences):
+    return ('seq', *sequences)
+
+
+def alt(*strings):
+    return ('alt', *strings)
+
+
+def star(character):
+    return ('star', character)
+
+
+def plus(literal):
+    return ('seq', ('lit', literal[1]), ('star', ('lit', literal[1])))
+
+
+def opt(literal):
+    return ('alt', lit(''), literal)
+
+
+def oneof(chars):
+    return ('oneof', tuple(chars))
+
+
+dot = ('dot',)
+eol = ('eol',)
+
+
 def matchset(pattern, text):
     """
     Match pattern at start of text; return a set of remainders of text.

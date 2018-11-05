@@ -1,7 +1,44 @@
 import pytest
 
 
-from regex_processor import matchset
+from regex_processor import (
+    matchset,
+    lit,
+    seq,
+    alt,
+    star,
+    plus,
+    opt,
+    oneof,
+)
+
+
+def test_lit():
+    assert lit('abc') == ('lit', 'abc')
+
+
+def test_seq():
+    assert seq(('lit', 'a'), ('lit', 'b'))  == ('seq', ('lit', 'a'), ('lit', 'b'))
+
+
+def test_alt():
+    assert alt(('lit', 'a'), ('lit', 'b'))  == ('alt', ('lit', 'a'), ('lit', 'b'))
+
+
+def test_star():
+    assert star(('lit', 'a')) == ('star', ('lit', 'a'))
+
+
+def test_plus():
+    assert plus(('lit', 'c')) == ('seq', ('lit', 'c'), ('star', ('lit', 'c')))
+
+
+def test_opt():
+    assert opt(('lit', 'x')) == ('alt', ('lit', ''), ('lit', 'x'))
+
+
+def test_oneof():
+    assert oneof('abc') == ('oneof', ('a', 'b', 'c'))
 
 
 def test_matchset():
