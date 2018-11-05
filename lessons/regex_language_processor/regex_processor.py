@@ -3,14 +3,18 @@ def match(pattern, text):
     remainders = matchset(pattern, text)
     if remainders:
         shortest = min(remainders, key=len)
-        return text.replace(shortest, '')
+        # we can do the following since the match must start at the start of the
+        # text
+        return text[:len(text) - len(shortest)]
 
 
 def search(pattern, text):
     "Match pattern anywhere in text; return longest earliest match or None."
     for i in range(len(text)):
         m = match(pattern, text[i:])
-        if m:
+        # we can't just do if m because the empty string may be the match and
+        # that's Falsey. So we need to explicitly compare against None.
+        if m is not None:
             return m
 
 
