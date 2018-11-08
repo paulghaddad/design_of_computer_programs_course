@@ -17,3 +17,8 @@ dot = lambda text: set([text[:1]]) if text else null
 
 
 eol = lambda text: set(['']) if text == '' else null
+
+
+def star(x):
+    return lambda text: (set([text]) | set(t2 for t1 in x(text) if t1 != text
+                                            for t2 in star(x)(t1)))
