@@ -1,3 +1,11 @@
+def match(pattern, text):
+    "Match pattern against start of text; return longest match found or None."
+    remainders = pattern(text)
+    if remainders:
+        shortest = min(remainders, key=len)
+        return text[:len(text)-len(shortest)]
+
+
 null = frozenset()
 
 
