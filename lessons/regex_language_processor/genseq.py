@@ -9,7 +9,7 @@ def lit(s):
 def alt(x, y): return lambda Ns: x(Ns) | y(Ns)
 
 
-def star(x): return lambda Ns: opt(plus(X))(Ns)
+def star(x): return lambda Ns: opt(plus(x))(Ns)
 
 
 def plus(x): return lambda Ns: genseq(x, star(x), Ns, startx=1)
@@ -28,3 +28,15 @@ dot = oneof("?")
 
 
 epsilon = lit("") # The pattern that matches the empty string
+
+
+def genseq(x, y, Ns):
+    """
+    Generate all concatenated sequences of x and y in the range up Ns inclusive
+    that are within the range NS.
+    """
+    Nss = range(max(Ns) + 1)
+    return set(m1 + m2
+               for m1 in x(Nss)
+               for m2 in y(Nss)
+               if len(m1 + m2) in Ns)

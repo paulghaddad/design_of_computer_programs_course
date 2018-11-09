@@ -3,6 +3,7 @@ from genseq import (
     lit,
     alt,
     oneof,
+    genseq
 )
 
 
@@ -25,3 +26,11 @@ def test_oneof():
 
     assert i(set([1, 2, 3])) == set(['t', 'h', 'e', 's', 'l', 'r'])
     assert i(set([2, 3, 4])) == null
+
+
+def test_genseq():
+    x = lit('hi')
+    y = lit('bye')
+    Ns = range(11)
+
+    assert genseq(x, y, Ns)
