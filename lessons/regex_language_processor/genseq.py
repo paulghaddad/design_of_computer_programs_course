@@ -1,7 +1,9 @@
 null = frozenset([])
 
 
-def lit(s): return lambda Ns: set([s]) if len(s) in Ns else null
+def lit(s):
+    set_s = set([s])
+    return lambda Ns: set_s if len(s) in Ns else null
 
 
 def alt(x, y): return lambda Ns: x(Ns) | y(Ns)
