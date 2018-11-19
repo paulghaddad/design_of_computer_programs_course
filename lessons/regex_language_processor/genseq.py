@@ -1,3 +1,6 @@
+from functools import update_wrapper
+
+
 null = frozenset([])
 
 
@@ -6,8 +9,14 @@ def n_ary(f):
     that f(x, y, z) = f(x, f(y,z)), etc. Also allow f(x) = x."""
     def n_ary_f(x, *args):
         return x if not args else f(x, n_ary_f(*args))
-
+    update_wrapper(n_ary_f, f)
     return n_ary_f
+
+
+def seq(x, y): return ('seq', x, y)
+
+
+seq = n_ary(seq)
 
 
 def lit(s):
@@ -29,7 +38,7 @@ def oneof(chars): return lambda Ns: set(chars) if 1 in Ns else null
 
 
 # no need to specify startx because no infinite recursion is possible
-def seq(x, y): return lambda Ns: genseq(x, y, Ns)
+# def seq(x, y): return lambda Ns: genseq(x, y, Ns)
 
 
 def opt(x): return alt(epsilon, x)
