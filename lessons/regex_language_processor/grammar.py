@@ -1,4 +1,5 @@
 import re
+from tools import memo
 
 
 def grammar(description, whitespace=r'\s*'):
@@ -80,6 +81,7 @@ def parse(start_symbol, text, grammar):
     # matching part, and take the rest of the text after the match, returning a
     # tuple of these two items. This is the only part of the code that advances
     # the text.
+    @memo
     def parse_atom(atom, text):
         if atom in grammar: # Non-terminal: tuple of alternatives
             for alternative in grammar[atom]:
