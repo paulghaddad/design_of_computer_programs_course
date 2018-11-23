@@ -1,3 +1,6 @@
+import re
+
+
 def grammar(description, whitespace=r'\s*'):
     """
     Convert a description to a grammar. Each line is a rule for a non-terminal
@@ -37,3 +40,58 @@ Exps    => Exp [,] Exps | Exp
 Var     => [a-zA-Z_]\w*
 Num     => [-+]?[0-9]+([.][0-9]*)?
 """)
+
+
+def parse(start_symbol, text, grammar):
+    """
+    Example call: parse('Exp', '3*x + b', G).
+    Returns a (tree, remainder) pair. If remainder is '', it parsed the whole
+    string; failure if remainder is None. This is a deterministic PEG parser, so
+    rule order (left-to-right) matters. Do 'E => T op E | T', putting the
+    longest parse first; don't do 'E => T | T op E'.
+    Also, no left recursion allowed: don't do 'E => E op T'
+    """
+
+    # First define the tokenizer. Two jobs, handle whitespace before the token.
+    # Then build up a regular expression that will parse the appropriate amount
+    # of whitespace (some, all, none). And then parse off whatever was defined
+    # by the atom we look at next.
+    tokenizer  = grammar[' '] + '(%s)'
+
+    # We go through a sequence of atoms. We'll try to parse an atom one at a
+    # time, appending the tree to the result each time. Note that we update the
+    # `text` variable each time through the loop as the remainder of the
+    # previous atom.
+    def parse_sequence(sequence, text):
+        result = []
+        for atom in sequence:
+            tree, text = parse_atom(atom, text)
+            if text is None: return Fail
+            result.append(tree)
+        return result, text
+
+    # Handles two cases. If the atom is in the grammar, we map it into a tuple
+    # of alternatives. For each alternative, we try to parse and if we have a
+    # successful match, we return a built-up tree structure and the remainder.
+    # If we exhaust the alternatives and don't match anything, we return Fail.
+    # Otherwise, if the atom is not in the grammar, then it must be a regular
+    # expression. We take the tokenizer and insert the atom, matching it against
+    # the text. If there's no match, we Fail, otherwise, we pull out the
+    # matching part, and take the rest of the text after the match, returning a
+    # tuple of these two items. This is the only part of the code that advances
+    # the text.
+    def parse_atom(atom, text):
+        if atom in grammar: # Non-terminal: tuple of alternatives
+            for alternative in grammar[atom]:
+                tree, rem = parse_sequence(alternative, text)
+                if rem is not None: return [atom]+tree, rem
+            return Fail
+
+        else: # Terminal: match characters against start of text
+            m = re.match(tokenizer % atom, text)
+            return Fail if (not m) else (m.group(1), text[m.end():])
+
+    # Body of parse
+    return parse_atom(start_symbol, text)
+
+Fail = (None, None)
