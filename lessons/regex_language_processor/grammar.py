@@ -43,6 +43,17 @@ Num     => [-+]?[0-9]+([.][0-9]*)?
 """)
 
 
+def verify(G):
+    """Verify the grammar is correct."""
+    lhstokens = set(G) - set([' '])
+    rhstokens = set(t for alts in G.values() for alt in alts for t in alt)
+    def show(title, tokens): print(title, '=', ' '.join(sorted(tokens)))
+    show('Non-Terms', G)
+    show('Terminals', rhstokens - lhstokens)
+    show('Suspects', [t for t in (rhstokens -lhstokens) if t.isalnum()])
+    show('Orphans', lhstokens - rhstokens)
+
+
 def parse(start_symbol, text, grammar):
     """
     Example call: parse('Exp', '3*x + b', G).
