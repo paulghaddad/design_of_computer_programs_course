@@ -81,7 +81,6 @@ def parse(start_symbol, text, grammar):
                 if rem is not None: return [atom]+tree, rem
             return Fail
         else:  # Terminal: match characters against start of text
-            # import pdb; pdb.set_trace()
             m = re.match(tokenizer % atom, text)
             return Fail if (not m) else (m.group(1), text[m.end():])
 
@@ -96,8 +95,10 @@ JSON = grammar(r"""
     array => [\[] elements [\]]
     elements => value [,] elements | value
     string => "[a-zA-Z]+"
-    number => int
-    int => [0-9]+
+    number => int frac exp | int frac | int
+    int => [+-]?[0-9]+
+    frac => [\.][0-9]+
+    exp => e[+-][0-9]+
 """, whitespace=r'\s*')
 
 
