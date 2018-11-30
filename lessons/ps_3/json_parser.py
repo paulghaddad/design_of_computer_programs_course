@@ -73,7 +73,7 @@ def parse(start_symbol, text, grammar):
             result.append(tree)
         return result, text
 
-    # @memo
+    @memo
     def parse_atom(atom, text):
         if atom in grammar:  # Non-Terminal: tuple of alternatives
             for alternative in grammar[atom]:
@@ -91,10 +91,13 @@ Fail = (None, None)
 
 
 JSON = grammar(r"""
-    value => array | string | number
+    value => object | array | string | number
+    object => [{] members [}]
     array => [\[] elements [\]]
+    members => pair [,] members | pair
+    pair => string [:] value
     elements => value [,] elements | value
-    string => "[a-zA-Z]+"
+    string => "[\w\s]+"
     number => int frac exp | int frac | int
     int => [+-]?[0-9]+
     frac => [\.][0-9]+
