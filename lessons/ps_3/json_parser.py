@@ -91,14 +91,14 @@ Fail = (None, None)
 
 
 JSON = grammar(r"""
-    value => object | array | string | number
-    object => [{] members [}]
-    array => [\[] elements [\]]
-    members => pair [,] members | pair
-    pair => string [:] value
+    value => object | array | string | number | true | false | null
+    object => { } | { members }
+    members => pair , members | pair
+    pair => string : value
+    array => [\[] [\]] | [\[] elements [\]]
     elements => value [,] elements | value
     string => "[\w\s]+"
-    number => int frac exp | int frac | int
+    number => int frac exp | int frac | | int exp | int
     int => [+-]?[0-9]+
     frac => [\.][0-9]+
     exp => e[+-][0-9]+
