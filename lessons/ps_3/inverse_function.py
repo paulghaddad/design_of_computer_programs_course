@@ -11,5 +11,4 @@ def inverse(f):
         # Now x is too big, x-delta is too small; pick the closest to y
         return x if (f(x)-y < y-f(x-delta)) else x - delta
 
-    return f_1
-
+    return f_1 
