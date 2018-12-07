@@ -15,7 +15,7 @@ def test_inverse_function_small_x():
     t1 = time.perf_counter()
 
     logging.getLogger().info(f"The function took {t1-t0} seconds to perform")
-    assert result == 10.0
+    assert abs(result - 10.0) < 1/128
 
 
 def test_inverse_function_large_x():
@@ -26,4 +26,4 @@ def test_inverse_function_large_x():
     t1 = time.perf_counter()
 
     logging.getLogger().info(f"The function took {t1-t0} seconds to perform")
-    assert result == 31622.7734375
+    assert abs(result - 31622.77) < 1/128
