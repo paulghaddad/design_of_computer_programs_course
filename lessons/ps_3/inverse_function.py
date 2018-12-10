@@ -16,11 +16,20 @@ def inverse(f):
     non-negatve numbers, return the function x = f_1(y) that is an approximate
     inverse, picking the closest value to the inverse, within delta.
     """
-    def f_1(y, delta=1/128):
-        lower = 0
-        upper = y
+    def find_solution_bounds(y):
+        lower_bound, upper_bound = 0, 1
 
-        while True:
+        while f(upper_bound) < y:
+            lower_bound = upper_bound
+            upper_bound *= 2
+
+        return lower_bound, upper_bound
+
+
+    def f_1(y, delta=1/128):
+        lower, upper = find_solution_bounds(y)
+
+        while lower < upper:
             guess = (upper + lower) / 2
             result = f(guess)
 
@@ -32,3 +41,5 @@ def inverse(f):
                 upper = guess
 
     return f_1
+
+
