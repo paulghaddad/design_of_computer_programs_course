@@ -37,15 +37,13 @@ def test_inverse_function_large_x():
     logging.getLogger().info(f"The function took {t1-t0} seconds to perform")
     assert abs(result - 31622.77) < 1/128
 
+def difference_assertion(n, name, value, expected):
+    diff = abs(value - expected)
+    assert diff < .002
 
-# def test_all_functions():
-#     nums = [2, 4, 6, 8, 10, 99, 100, 101, 1000, 10000, 20000, 40000, 1000000000]
-#     for n in nums:
-#         expected = sqrt(n)
-#         actual = sqrt(n)
-#
-#         diff = abs(actual - expected)
-#         assert diff < .002
-#         test1(n, 'sqrt', sqrt(n), math.sqrt(n))
-#         # test1(n, 'log', log10(n), math.log10(n))
-#         # test1(n, '3-rt', cuberoot(n), n**(1./3.))
+def test_all_functions():
+    nums = [2, 4, 6, 8, 10, 99, 100, 101, 1000, 10000, 20000, 40000, 1000000000]
+    for n in nums:
+        difference_assertion(n, 'sqrt', sqrt(n), math.sqrt(n))
+        difference_assertion(n, 'log', log10(n), math.log10(n))
+        difference_assertion(n, '3-rt', cuberoot(n), n**(1./3.))
