@@ -12,6 +12,7 @@ sqrt = inverse(square)
 def power10(x): return 10**x
 log10 = inverse(power10)
 
+
 def cube(x): return x**3
 cuberoot = inverse(cube)
 
@@ -22,10 +23,13 @@ def test_inverse_function_small_x():
     t1 = time.perf_counter()
 
     logging.getLogger().info(f"The function took {t1-t0} seconds to perform")
+
     assert abs(result - 10.0) < 1/128
 
 
 def test_inverse_function_large_x():
+    sqrt = inverse(square)
+
     t0 = time.perf_counter()
     result = sqrt(1000000000)
     t1 = time.perf_counter()
