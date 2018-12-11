@@ -31,4 +31,4 @@ def test_findtags():
                                    '<a href="www.udacity.com"target="_blank">']
 
     assert findtags(testtext2) == []
-    # assert findtags(testtext3) == ['<         b           >']
+    assert findtags(testtext3) == ['<         b           >']

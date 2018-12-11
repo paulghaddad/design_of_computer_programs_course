@@ -1,7 +1,7 @@
 import re
 
 
-HTML_START_TAG_PATTERN = re.compile(r'<[a-z]\s*([a-z]+="[\w\.]+")*>')
+HTML_START_TAG_PATTERN = re.compile(r'<\s*[a-z]\s*([a-z]+="[\w\.]+")*>')
 
 def findtags(text):
     """
