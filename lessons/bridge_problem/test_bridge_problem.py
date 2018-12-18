@@ -69,5 +69,6 @@ def test_bridge_problem():
         (frozenset(), frozenset({1, 2, 'light', 5, 10}), 19)]
 
 
-    assert bridge_problem([1,2,5,10])[1::2] == [(2, 1, '->'), (1, 1, '<-'), (5, 1, '->'), (1, 1, '<-'), (10, 1, '->')]
-
+def test_bridge_problem_finds_cheapest_solution():
+    assert bridge_problem(frozenset((1, 2),))[-1][-1] == 2 # the [-1][-1] grabs the total elapsed time
+    assert bridge_problem(frozenset((1, 2, 5, 10),))[-1][-1] == 17
