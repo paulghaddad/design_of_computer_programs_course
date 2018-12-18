@@ -22,9 +22,20 @@ def bsuccessors(state):
 
 
 def path_states(path):
+    "Return a list of states in this path."
     states = []
     for i, element in enumerate(path):
         if i % 2 == 0:
             states.append(element)
 
     return states
+
+
+def path_actions(path):
+    "Return a list of actions in this path."
+    actions = []
+    for i, element in enumerate(path):
+        if i % 2 != 0:
+            actions.append(element)
+
+    return actions
