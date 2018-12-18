@@ -3,7 +3,8 @@ import pytest
 from bridge_problem import (
     bsuccessors,
     path_states,
-    path_actions
+    path_actions,
+    bridge_problem,
 )
 
 def test_bsuccessors():
@@ -57,3 +58,16 @@ def test_path_actions():
                                       (10, 2, '->'),
                                       (5, 1, '->'),
                                       (1, 1, '->')]
+
+
+def test_bridge_problem():
+    assert bridge_problem([1,2,5,10]) == [(frozenset({1, 2, 'light', 5, 10}), frozenset(), 0), (2, 1, '->'),
+        (frozenset({10, 5}), frozenset({1, 2, 'light'}), 2), (1, 1, '<-'),
+        (frozenset({1, 10, 'light', 5}), frozenset({2}), 3), (5, 1, '->'),
+        (frozenset({10}), frozenset({1, 2, 'light', 5}), 8), (1, 1, '<-'),
+        (frozenset({1, 10, 'light'}), frozenset({2, 5}), 9), (10, 1, '->'),
+        (frozenset(), frozenset({1, 2, 'light', 5, 10}), 19)]
+
+
+    assert bridge_problem([1,2,5,10])[1::2] == [(2, 1, '->'), (1, 1, '<-'), (5, 1, '->'), (1, 1, '<-'), (10, 1, '->')]
+
