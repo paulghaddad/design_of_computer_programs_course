@@ -19,3 +19,12 @@ def bsuccessors(state):
                     (a, b, '<-'))
                     for a in there if a is not 'light'
                     for b in there if b is not 'light')
+
+
+def path_states(path):
+    states = []
+    for i, element in enumerate(path):
+        if i % 2 == 0:
+            states.append(element)
+
+    return states
