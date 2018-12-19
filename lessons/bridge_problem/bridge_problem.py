@@ -41,6 +41,19 @@ def bsuccessors2(state):
                      for b in there if b is not 'light')
 
 
+def path_cost(path):
+    """
+    The total cost of a path (which is stored in a tuple
+    with the final action.
+
+    path = (state, (action, total_cost), state, ... )
+    """
+    if len(path) < 3:
+        return 0
+    else:
+        return path[-2][1]
+
+
 def path_states(path):
     "Return a list of states in this path."
     return path[::2]

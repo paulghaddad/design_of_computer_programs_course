@@ -1,11 +1,12 @@
 import pytest
 
 from bridge_problem import (
+    bridge_problem,
     bsuccessors,
     bsuccessors2,
-    path_states,
     path_actions,
-    bridge_problem,
+    path_cost,
+    path_states,
 )
 
 def test_bsuccessors():
@@ -24,6 +25,11 @@ def test_bsuccessors2():
     there2 = frozenset([3])
 
     assert bsuccessors2((here2, there2)) == {(frozenset([1]), frozenset(['light', 2, 3])): (2, 2, '->'), (frozenset([2]), frozenset([1, 3, 'light'])): (1, 1, '->'), (frozenset([]), frozenset([1, 2, 3, 'light'])): (2, 1, '->')}
+
+
+def test_path_cost():
+    assert path_cost(('fake_state1', ((2, 5, '->'), 5), 'fake_state2')) == 5
+    assert path_cost(('fs1', ((2, 1, '->'), 2), 'fs2', ((3, 4, '<-'), 6), 'fs3')) == 6
 
 
 testpath = [(frozenset([1, 10]), frozenset(['light', 2, 5]), 5),     # state 1
