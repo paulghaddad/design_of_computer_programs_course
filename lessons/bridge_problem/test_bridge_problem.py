@@ -2,6 +2,7 @@ import pytest
 
 from bridge_problem import (
     bsuccessors,
+    bsuccessors2,
     path_states,
     path_actions,
     bridge_problem,
@@ -11,6 +12,18 @@ def test_bsuccessors():
     assert bsuccessors((frozenset([1, 'light']), frozenset([]), 3)) == { (frozenset([]), frozenset([1, 'light']), 4): (1, 1, '->')}
 
     assert bsuccessors((frozenset([]), frozenset([2, 'light']), 0)) =={ (frozenset([2, 'light']), frozenset([]), 2): (2, 2, '<-')}
+
+
+def test_bsuccessors2():
+    here1 = frozenset([1, 'light'])
+    there1 = frozenset([])
+
+    assert bsuccessors2((here1, there1)) == {(frozenset([]), frozenset([1, 'light'])): (1, 1, '->')}
+
+    here2 = frozenset([1, 2, 'light'])
+    there2 = frozenset([3])
+
+    assert bsuccessors2((here2, there2)) == {(frozenset([1]), frozenset(['light', 2, 3])): (2, 2, '->'), (frozenset([2]), frozenset([1, 3, 'light'])): (1, 1, '->'), (frozenset([]), frozenset([1, 2, 3, 'light'])): (2, 1, '->')}
 
 
 testpath = [(frozenset([1, 10]), frozenset(['light', 2, 5]), 5),     # state 1

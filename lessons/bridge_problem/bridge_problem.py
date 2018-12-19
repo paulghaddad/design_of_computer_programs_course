@@ -21,6 +21,26 @@ def bsuccessors(state):
                     for b in there if b is not 'light')
 
 
+def bsuccessors2(state):
+    """Return a dict of {state:action} pairs. A state is a
+    (here, there) tuple, where here and there are frozensets
+    of people (indicated by their travel times) and/or the light."""
+    here, there = state
+
+    if 'light' in here:
+        return dict(((here - frozenset([a, b, 'light']),
+                      there | frozenset([a, b, 'light'])),
+                      (a, b, '->'))
+                     for a in here if a is not 'light'
+                     for b in here if b is not 'light')
+    else:
+        return dict(((here | frozenset([a, b, 'light']),
+                      there - frozenset([a, b, 'light'])),
+                      (a, b, '<-'))
+                     for a in there if a is not 'light'
+                     for b in there if b is not 'light')
+
+
 def path_states(path):
     "Return a list of states in this path."
     return path[::2]
