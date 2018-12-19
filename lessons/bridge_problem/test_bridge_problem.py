@@ -61,12 +61,12 @@ def test_path_actions():
 
 
 def test_bridge_problem():
-    assert bridge_problem([1,2,5,10]) == [(frozenset({1, 2, 'light', 5, 10}), frozenset(), 0), (2, 1, '->'),
-        (frozenset({10, 5}), frozenset({1, 2, 'light'}), 2), (1, 1, '<-'),
-        (frozenset({1, 10, 'light', 5}), frozenset({2}), 3), (5, 1, '->'),
-        (frozenset({10}), frozenset({1, 2, 'light', 5}), 8), (1, 1, '<-'),
-        (frozenset({1, 10, 'light'}), frozenset({2, 5}), 9), (10, 1, '->'),
-        (frozenset(), frozenset({1, 2, 'light', 5, 10}), 19)]
+    assert bridge_problem([1,2,5,10]) == [(frozenset({1, 2, 5, 'light', 10}), frozenset(), 0), (2, 1, '->'),
+     (frozenset({10, 5}), frozenset({1, 2, 'light'}), 2), (1, 1, '<-'),
+     (frozenset({1, 10, 5, 'light'}), frozenset({2}), 3), (5, 10, '->'),
+     (frozenset({1}), frozenset({2, 10, 5, 'light'}), 13), (2, 2, '<-'),
+     (frozenset({1, 2, 'light'}), frozenset({10, 5}), 15), (2, 1, '->'),
+     (frozenset(), frozenset({1, 2, 5, 'light', 10}), 17)]
 
 
 def test_bridge_problem_finds_cheapest_solution():

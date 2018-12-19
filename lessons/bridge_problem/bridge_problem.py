@@ -40,21 +40,19 @@ def bridge_problem(here):
         return frontier[0]
     while frontier:
         path = frontier.pop(0)
+        here = path[-1][0]
+        if not here:
+            return path
         for (state, action) in bsuccessors(path[-1]).items():
             if state not in explored:
                 here, there, t = state
                 explored.add(state)
                 path2 = path + [action, state]
-                if not here: # That is, nobody is left here
-                    return path2
-                else:
-                    frontier.append(path2)
-                    frontier.sort(key=elapsed_time)
+                frontier.append(path2)
+                frontier.sort(key=elapsed_time)
 
     return []
 
 
 def elapsed_time(path):
     return path[-1][2]
-
-
