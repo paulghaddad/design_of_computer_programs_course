@@ -40,8 +40,8 @@ def bridge_problem(here):
         return frontier[0]
     while frontier:
         path = frontier.pop(0)
-        here = path[-1][0]
-        if not here:
+        here1, there1, t1 = state1 = path[-1]
+        if not here1 or there1 == set(['light']):
             return path
         for (state, action) in bsuccessors(path[-1]).items():
             if state not in explored:
