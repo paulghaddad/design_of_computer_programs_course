@@ -1,6 +1,7 @@
 import pytest
 
 from bridge_problem import (
+    bcost,
     bridge_problem,
     bsuccessors,
     bsuccessors2,
@@ -30,6 +31,11 @@ def test_bsuccessors2():
 def test_path_cost():
     assert path_cost(('fake_state1', ((2, 5, '->'), 5), 'fake_state2')) == 5
     assert path_cost(('fs1', ((2, 1, '->'), 2), 'fs2', ((3, 4, '<-'), 6), 'fs3')) == 6
+
+
+def test_bcost():
+    assert bcost((4, 2, '->'),) == 4
+    assert bcost((3, 10, '<-'),) == 10
 
 
 testpath = [(frozenset([1, 10]), frozenset(['light', 2, 5]), 5),     # state 1

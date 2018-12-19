@@ -48,10 +48,17 @@ def path_cost(path):
 
     path = (state, (action, total_cost), state, ... )
     """
-    if len(path) < 3:
+    if len(path) < 3: # we don't have an action, just an individual state
         return 0
     else:
-        return path[-2][1]
+        action, total_cost = path[-2]
+        return total_cost
+
+
+def bcost(action):
+    """Returns the cost (a number) of an action in the bridge problem."""
+    a, b, arrow = action
+    return max(a, b)
 
 
 def path_states(path):
