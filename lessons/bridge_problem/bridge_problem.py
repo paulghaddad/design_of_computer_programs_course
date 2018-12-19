@@ -56,3 +56,30 @@ def bridge_problem(here):
 
 def elapsed_time(path):
     return path[-1][2]
+
+
+class TestBridge: """
+>>> elapsed_time(bridge_problem([1,2,5,10]))
+17
+
+## There are two equally good solutions
+>>> S1 = [(2, 1, '->'), (1, 1, '<-'), (5, 10, '->'), (2, 2, '<-'), (2, 1, '->')]
+>>> S2 = [(2, 1, '->'), (2, 2, '<-'), (5, 10, '->'), (1, 1, '<-'), (2, 1, '->')]
+>>> path_actions(bridge_problem([1,2,5,10])) in (S1, S2)
+True
+
+## Try some other problems
+>>> path_actions(bridge_problem([1,2,5,10,15,20]))
+[(2, 1, '->'), (1, 1, '<-'), (10, 5, '->'), (2, 2, '<-'), (2, 1, '->'), (1, 1, '<-'), (15, 20, '->'), (2, 2, '<-'), (2, 1, '->')]
+>>> path_states(bridge_problem([1,2,5,10,15,20]))
+[(frozenset([1, 2, 20, 5, 'light', 10, 15]), frozenset([]), 0), (frozenset([10, 20, 5, 15]), frozenset([1, 2, 'light']), 2), (frozenset([1, 20, 5, 'light', 10, 15]), frozenset([2]), 3), (frozenset([1, 20, 15]), frozenset(['light', 2, 10, 5]), 13), (frozenset([1, 2, 'light', 20, 15]), frozenset([10, 5]), 15), (frozenset([20, 15]), frozenset([1, 10, 2, 5, 'light']), 17), (frozenset([1, 'light', 20, 15]), frozenset([10, 2, 5]), 18), (frozenset([1]), frozenset([2, 20, 5, 'light', 10, 15]), 38), (frozenset([1, 2, 'light']), frozenset([10, 20, 5, 15]), 40), (frozenset([]), frozenset([1, 2, 20, 5, 'light', 10, 15]), 42)]
+
+>>> path_actions(bridge_problem([1,2,4,8,16,32]))
+[(2, 1, '->'), (1, 1, '<-'), (8, 4, '->'), (2, 2, '<-'), (1, 2, '->'), (1, 1, '<-'), (16, 32, '->'), (2, 2, '<-'), (2, 1, '->')]
+>>> path_states(bridge_problem([1,2,4,8,16,32]))
+[(frozenset([32, 1, 2, 4, 16, 8, 'light']), frozenset([]), 0), (frozenset([32, 16, 4, 8]), frozenset([1, 2, 'light']), 2), (frozenset([32, 16, 4, 1, 8, 'light']), frozenset([2]), 3), (frozenset([32, 16, 1]), frozenset([8, 'light', 2, 4]), 11), (frozenset([32, 16, 2, 'light', 1]), frozenset([8, 4]), 13), (frozenset([32, 16]), frozenset([8, 1, 2, 4, 'light']), 15), (frozenset([32, 16, 'light', 1]), frozenset([8, 2, 4]), 16), (frozenset([1]), frozenset([32, 16, 2, 4, 8, 'light']), 48), (frozenset([1, 2, 'light']), frozenset([32, 16, 4, 8]), 50), (frozenset([]), frozenset([32, 16, 2, 4, 1, 8, 'light']), 52)]
+"""
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
