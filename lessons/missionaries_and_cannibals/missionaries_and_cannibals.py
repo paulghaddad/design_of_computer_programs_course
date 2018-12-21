@@ -15,5 +15,9 @@ def csuccessors(state):
         for action, (M, C) in actions.items():
             successor_state = (M1-M, C1-C, 0, M2+M, C2+C, 1)
             successor_states[successor_state] = action+'->'
+    else:
+        for action, (M, C) in actions.items():
+            successor_state = (M1+M, C1+C, 1, M2-M, C2-C, 0)
+            successor_states[successor_state] = '<-'+action
 
     return successor_states
