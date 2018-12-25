@@ -1,3 +1,11 @@
+def bridge_problem3(here):
+    """Find the fastest (least elapsed time) path to the goal in the bridge problem."""
+    here = frozenset(here) | frozenset(['light'])
+    there = frozenset()
+    start = (here, there)
+    return lowest_cost_search(start, bsuccessors2, goal, bcost)
+
+
 def lowest_cost_search(start, successors, is_goal, action_cost):
     """Return the lowest cost path, starting from start state,
     and considering successors(state) => {state:action,...},
@@ -22,6 +30,10 @@ def lowest_cost_search(start, successors, is_goal, action_cost):
 
 Fail = []
 
+def goal(state):
+    here, there = state
+    return not here or here == set(['light'])
+
 def final_state(path): return path[-1]
 
 def path_cost(path):
@@ -31,6 +43,12 @@ def path_cost(path):
     else:
         action, total_cost = path[-2]
         return total_cost
+
+def bcost(action):
+    """Returns the cost (a number) of an action in the bridge problem."""
+    a, b, arrow = action
+    return max(a, b)
+
 
 def add_to_frontier(frontier, path):
     "Add path to frontier, replacing costlier path if there is one."
@@ -48,3 +66,22 @@ def add_to_frontier(frontier, path):
         ## Now add the new path and re-sort
     frontier.append(path)
     frontier.sort(key=path_cost)
+
+
+def bsuccessors2(state):
+    """Return a dict of {state:action} pairs.  A state is a (here, there) tuple,
+    where here and there are frozensets of people (indicated by their times) and/or
+    the light."""
+    here, there = state
+    if 'light' in here:
+        return dict(((here  - frozenset([a, b, 'light']),
+                      there | frozenset([a, b, 'light'])),
+                     (a, b, '->'))
+                    for a in here if a is not 'light'
+                    for b in here if b is not 'light')
+    else:
+        return dict(((here  | frozenset([a, b, 'light']),
+                      there - frozenset([a, b, 'light'])),
+                     (a, b, '<-'))
+                    for a in there if a is not 'light'
+                    for b in there if b is not 'light')
