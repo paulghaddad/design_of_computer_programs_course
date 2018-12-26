@@ -18,5 +18,14 @@ def bsuccessors3(state):
     on the here side and 1 if it is on the there side.
     Action is a tuple (travelers, arrow) where arrow is '->' or '<-'
     """
-    return { (frozenset([]), frozenset([1]), 1)  :  (set([1]), '->')}
+    here, there, light = state
 
+    if light:
+        print('light on there side')
+    else:
+        print('light on here side')
+        return dict(((here - frozenset([a, b]),
+                      there | frozenset([a, b]),
+                      1), (set([1]), '->'))
+                    for a in here
+                    for b in here)
