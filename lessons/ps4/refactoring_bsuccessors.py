@@ -21,11 +21,14 @@ def bsuccessors3(state):
     here, there, light = state
 
     if light:
-        print('light on there side')
+        return dict(((here | frozenset([a, b]),
+                      there - frozenset([a, b]),
+                      0), (set([a, b]), '<-'))
+                    for a in there
+                    for b in there)
     else:
-        print('light on here side')
         return dict(((here - frozenset([a, b]),
                       there | frozenset([a, b]),
-                      1), (set([1]), '->'))
+                      1), (set([a, b]), '->'))
                     for a in here
                     for b in here)
