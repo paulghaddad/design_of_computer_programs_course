@@ -32,3 +32,20 @@ def bsuccessors3(state):
                       1), (set([a, b]), '->'))
                     for a in here
                     for b in here)
+
+def bsuccessors3_norvig(state):
+    _, _, light = state
+    return dict(bsuccessor3_norvig(state, set([a, b]))
+                for a in state[light]
+                for b in state[light])
+
+def bsuccessor3_norvig(state, travelers):
+    "The single successor state when this set of travelers move."
+    _, _, light = state
+    start = state[light] - travelers
+    dest = state[1-light] | travelers
+
+    if light == 0:
+        return (start, dest, 1), (travelers, '->')
+    else:
+        return (dest, start, 0), (travelers, '<-')
