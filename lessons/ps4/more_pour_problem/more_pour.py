@@ -33,6 +33,12 @@ def more_pour_problem(capacities, goal, start=None):
         for i, glass in enumerate(state):
             assert glass <= capacities[i]
 
+        # Iterate through glasses and build actions for pouring and filling each
+        # glass
+
+        # Use itertools.permutations to come up with all possible pouring
+        # actions. Order matters: A -> B != B -> A
+
     return shortest_path_search(start, successors, is_goal)
 
 
