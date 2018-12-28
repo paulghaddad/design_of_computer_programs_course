@@ -23,4 +23,37 @@ def more_pour_problem(capacities, goal, start=None):
     On success return a path: a [state, action, state2, ...] list, where an
     action is one of ('fill', i), ('empty', i), ('pour', i, j), where
     i and j are indices indicating the glass number."""
-    return [(0, 0, 0, 0), ('fill', 2), (0, 0, 4, 0)]
+    if not start:
+        start = tuple(len(capacities) * [0])
+
+    def is_goal(state):
+        return bool(list(filter(lambda glass: glass == goal, state)))
+
+    def successors(state):
+        for i, glass in enumerate(state):
+            assert glass <= capacities[i]
+
+    return shortest_path_search(start, successors, is_goal)
+
+
+def shortest_path_search(start, successors, is_goal):
+    """Find the shortest path from start state to a state such that
+    is_goal(state) is true."""
+    if is_goal(start):
+        return[start]
+    explored = set()
+    frontier = [ [start] ] 
+    while frontier:
+        path = frontier.pop(0)
+        s = path[-1]
+        for (state, action) in successors(s).items():
+            if state not in explored:
+                explored.add(state)
+                path2 = path + [action, state]
+                if is_goal(state):
+                    return path2
+                else:
+                    frontier.append(path2)
+    return Fail
+
+Fail = []
